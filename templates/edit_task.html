@@ -1,0 +1,22 @@
+<!-- Must Read through Code and examine its functionality-->
+<h1>Edit Task</h1>
+
+<form method="POST">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" value="{{ task.title }}"><br>
+
+    <label for="description">Description:</label><br>
+    <input type="text" id="description" name="description" value="{{ task.description }}"><br>
+
+    <label for="dueDate">Due Date:</label><br>
+    <input type="date" id="dueDate" name="dueDate" value="{{ task.dueDate }}"><br>
+
+    <label for="status">Status:</label><br>
+    <select id="status" name="status">
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select><br>
+
+    <input type="submit" value="Update Task">
+</form>
