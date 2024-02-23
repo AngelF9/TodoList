@@ -1,7 +1,7 @@
 <!-- Must Read through Code and examine its functionality-->
 <h1>Edit Task</h1>
 
-<form method="POST">
+<form method="POST"> <!-- form data is packaged into an HTTP POST request and sent to the server at the /edit URL as specifiec in the action="edit" attribute -->
     <label for="title">Title:</label><br>
     <input type="text" id="title" name="title" value="{{ task.title }}"><br>
 

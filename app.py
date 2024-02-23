@@ -41,12 +41,12 @@ def edit_task(task_id):
         return redirect(url_for('index'))
     return render_template('edit_task.html', task=task)
 
-@app.route('/delete/<int:tasl_id>')
+@app.route('/delete/<int:task_id>')
 def delete_task(task_id):
-    task = Task.query.get_or_404(task_id)
-    db.session.delete(task)
-    db.session.commit()
-    return redirect(url_for('index'))
+    task = Task.query.get_or_404(task_id) # if the task_id is found the we have found the task.. else return 404
+    db.session.delete(task)              # delete the task from the database session
+    db.session.commit()                 # commit the session to the database
+    return redirect(url_for('index'))   # redirect the user back to the index route
 
 
 if __name__ == '__main__':

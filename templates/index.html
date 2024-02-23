@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Todo List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
     <h1 class="centered-title">Todo List</h1>
 
-    <form action="/add" method="post"> <!-- form data is packaged into an HTTP POST request and sent to the server at the /add URL as specifiec in the action="add" attribute -->
-        <input type="text" name="title" placeholder="Task Title">
-        <input type="text" name="description" placeholder="Description">
-        <input type="date" name="dueDate">
-        <select name="status">
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-        </select>
-        <button type="submit">Add Task</button>
+    <form action="/add" method="post">
+      <!-- form data is packaged into an HTTP POST request and sent to the server at the /add URL as specifiec in the action="add" attribute -->
+      <input type="text" name="title" placeholder="Task Title" />
+      <input type="text" name="description" placeholder="Description" />
+      <input type="date" name="dueDate" />
+      <select name="status">
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <button type="submit">Add Task</button>
     </form>
 
     <ul>
-        {% for task in tasks %}
-        <li>
-            {{ task.title }} - {{ task.description }} - Due: {{ task.dueDate}} - Status: {{ task.status }}
-            <a href="/edit/{{ task.id }}" style="margin-left: 10px; padding: 5px 10px; background-color: #4CAF50; color: white; text-decoration: none;">Edit</a>
-        </li> 
-        {% else %}
-        <li>The todo list is empty</li>
-        {% endfor %}
+      {% for task in tasks %}
+      <li>
+        {{ task.title }} - {{ task.description }} - Due: {{ task.dueDate}} -
+        Status: {{ task.status }}
+        <a href="/edit/{{ task.id }}" style="margin-left: 10px; padding: 5px 10px; background-color: #4caf50; color: white; text-decoration: none;">Edit</a>
+        <a href="/delete/{{ task.id}}" style="margin-left: 10px; padding: 5px 10px; background-color: crimson; color: white; text-decoration: none;">Delete</a>
+      </li>
+      {% else %}
+      <li>The todo list is empty</li>
+      {% endfor %}
     </ul>
-</body>
+  </body>
 </html>

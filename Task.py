@@ -36,14 +36,3 @@ class TodoList:
                 print(f"Todo item '{title}' has been removed.")
                 return
         print("No item found")
-
-"""    def display_tasks(self):
-        if not self.todo_list:
-            print("No tasks to display.")
-            return
-        for i, task in enumerate(self.todo_list, start=1):
-            print(f"Task {i}: {task.title}")
-            print(f"  Description: {task.description}")
-            print(f"  Due Date: {task.dueDate}")
-            print(f"  Status: {task.status}")
-            print("")"""
