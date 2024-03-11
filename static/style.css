@@ -1,4 +1,9 @@
 /* adding css directly in the HTML head for simplicity */ 
 .centered-title {
     text-align: center;
+} 
+
+li {
+    margin-bottom: 20px;
+    list-style-type: none;
 }

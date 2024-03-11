@@ -7,32 +7,19 @@ class Task(db.Model): # create a class that maps to the database table. This cla
     description = db.Column(db.String(120))
     dueDate = db.Column(db.String(10))
     status = db.Column(db.String(10))
-    #4 why is db not defined.. does it need to be imported?
+    important = db.Column(db.Boolean, default=False)    #4 why is db not defined.. does it need to be imported?
 
-    def __init__(self, title, description, dueDate, status):
+    def __init__(self, title, description, dueDate, status, important):
         self.title = title
         self.description = description
         self.dueDate = dueDate
         self.status = status
+        self.important = important
+
+    def __repr__(self):
+        return f'<Task {self.title}>'
+    
 
     def update_status(self, new_status):
         self.status = new_status
         print(f"Task {self.title} has been updated to {new_status}")
-    
-class TodoList:
-    def __init__(self):
-        # attributes
-        self.todo_list = [] # this attribute acts as container for tasks - its the actual list that stores instance of Task objects
-
-    # methods: mainpulates a certain instance 
-    def add_todo(self, title, description, dueDate, status):
-        new_todo = Task(title, description, dueDate, status)
-        self.todo_list.append(new_todo)
-
-    def delete_todo(self, title):
-        for i, task in enumerate(self.todo_list):
-            if task.title == title:
-                del self.todo_list[i]
-                print(f"Todo item '{title}' has been removed.")
-                return
-        print("No item found")

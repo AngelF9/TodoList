@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from Task import db                             # import the db object from the Task module. db is the SQLAlchemy object that we created in Task.py
 from flask_sqlalchemy import SQLAlchemy
 
@@ -18,8 +18,9 @@ def add_task():                                 # when POST request hits route a
     title = request.form['title']               # request.form is a dictionary that contains the data from the form
     description = request.form['description']   # ['...'] extract data from the respective fields filled out in the form
     dueDate = request.form['dueDate']
-    status = request.form['status'] 
-    new_task = Task(title, description, dueDate, status)    # create a new instance of Task
+    status = request.form['status']
+    important = request.form.get('important', False)
+    new_task = Task(title, description, dueDate, status, important)    # create a new instance of Task
     db.session.add(new_task)                                #  add the new instance to the database session (pending/limbo state)
     db.session.commit()                                     # commit the session to the database
     return redirect(url_for('index'))           # function does not return HTML directly. instead it redirects the user back to the index route 
@@ -47,6 +48,19 @@ def delete_task(task_id):
     db.session.delete(task)              # delete the task from the database session
     db.session.commit()                 # commit the session to the database
     return redirect(url_for('index'))   # redirect the user back to the index route
+
+@app.route('/important') # function generates the URL for the important route
+def view_important(): # function renders the important page
+    tasks = Task.query.filter_by(important=True).all() # query the database for all tasks that are important
+    return render_template('important.html', tasks=tasks) # render the important.html template and pass the tasks to it
+
+@app.route('/update_important/<int:task_id>', methods=['POST']) # function generates the URL for the update_important route
+def update_important(task_id): # function updates the important status of a task
+    task = Task.query.get_or_404(task_id) # get the task with the given id or return 404 if not found
+    task_data = request.json # get the JSON data from the request
+    task.important = task_data.get('important', task.important) # update the important status of the task by getting the important value from the JSON data. If the important value is not in the JSON data, use the current important value of the task
+    db.session.commit() # commit the session to the database
+    return jsonify({'sucess': True, 'important': task.important}) # return a JSON response with the success status and the new important status of the task
 
 
 if __name__ == '__main__':

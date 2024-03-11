@@ -1,0 +1,16 @@
+<!-- 
+    This file is used to display the important tasks in the application.
+    It is a simple HTML file with some Jinja2 templating
+-->
+<a href="/">Return to Main Page</a>
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{ task.title }} - {{ task.description }} - Due: {{ task.dueDate }} - Status: {{ task.status }}
+        <a href="/edit/{{ task.id }}" style="margin-left: 10px; padding: 5px 10px; background-color: #4caf50; color: white; text-decoration: none;">Edit</a>
+        <a href="/delete/{{ task.id}}" style="margin-left: 10px; padding: 5px 10px; background-color: crimson; color: white; text-decoration: none;">Delete</a>
+    </li>
+    {% else %}
+    <li>No Important tasks</li>
+    {% endfor %}
+</ul>
